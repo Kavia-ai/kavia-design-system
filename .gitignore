@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+storybook-static/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/settings.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Claude local settings (keep launch.json, ignore local overrides)
+.claude/settings.local.json
+
+# Misplaced shadcn CLI output (components live in src/components/ui/)
+@/

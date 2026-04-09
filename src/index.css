@@ -1,0 +1,573 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 14px;
+}
+
+@layer base {
+  /* ── Design Tokens ─────────────────────────────────────────────────────── */
+
+  :root {
+    /* ── Base tokens ──────────────────────────────────────────────── */
+    --background:             0 0% 100%;        /* elevation.surface.default     */
+    --foreground:             228 6% 17%;        /* color.text.default   15:1 ✓  */
+    --card:                   0 0% 100%;         /* elevation.surface.raised      */
+    --card-foreground:        228 6% 17%;
+    --popover:                0 0% 100%;         /* elevation.surface.overlay     */
+    --popover-foreground:     228 6% 17%;
+    --primary:                215 80% 48%;       /* bg.brand.bold   #1868DB 5.3✓  */
+    --primary-foreground:     0 0% 100%;         /* text.inverse    #FFFFFF       */
+    --secondary:              210 7% 95%;        /* surface.hovered #F0F1F2       */
+    --secondary-foreground:   228 6% 17%;        /* text.default    #292A2E       */
+    --muted:                  210 7% 95%;        /* surface.hovered #F0F1F2       */
+    --muted-foreground:       224 5% 44%;        /* text.subtlest   #6B6E76 5.2✓  */
+    --accent:                 214 91% 95%;       /* bg.brand.subtlest  #E9F2FE    */
+    --accent-foreground:      215 80% 48%;       /* text.selected   #1868DB       */
+    --destructive:            4 64% 48%;         /* bg.danger.bold  #C9372C 5.3✓  */
+    --destructive-foreground: 0 0% 100%;         /* text.inverse    #FFFFFF       */
+    --border:                 225 6% 87%;        /* Neutral300      #DDDEE1       */
+    --input:                  224 5% 57%;        /* border.input    #8C8F97       */
+    --ring:                   216 81% 60%;       /* border.focused  #4688EC       */
+    --radius:                 0.5rem;
+    /* Charts — color.chart.categorical.1-8 */
+    --chart-1:                216 80% 56%;       /* #357DE8  Blue              */
+    --chart-2:                84 54% 46%;        /* #82B536  Lime              */
+    --chart-3:                278 86% 67%;       /* #BF63F3  Purple            */
+    --chart-4:                32 93% 50%;        /* #F68909  Orange            */
+    --chart-5:                195 65% 55%;       /* #42B2D7  Teal              */
+    --chart-6:                279 48% 52%;       /* #964AC0  Deep Purple       */
+    --chart-7:                29 100% 37%;       /* #BD5B00  Brown Orange      */
+    --chart-8:                323 71% 68%;       /* #E774BB  Magenta           */
+    /* Sidebar */
+    --sidebar-background:             0 0% 98%;      /* surface.sunken  #F8F8F8      */
+    --sidebar-foreground:             240 5.3% 26.1%;    /* text.default    #292A2E      */
+    --sidebar-primary:             240 5.9% 10%;   /* bg.brand.bold   #1868DB      */
+    --sidebar-primary-foreground:             0 0% 98%;
+    --sidebar-accent:             240 4.8% 95.9%;   /* bg.brand.subtlest #E9F2FE    */
+    --sidebar-accent-foreground:             240 5.9% 10%;
+    --sidebar-border:             220 13% 91%;    /* Neutral300      #DDDEE1      */
+    --sidebar-ring:             217.2 91.2% 59.8%;   /* border.focused  #4688EC      */
+
+    /* ── Extended semantic tokens ───────────────────────────────── */
+
+    /* Text ── color.text.* */
+    --ds-text:                  228 6% 17%;      /* .default  #292A2E            */
+    --ds-text-subtle:           225 5% 33%;      /* .subtle   #505258            */
+    --ds-text-subtlest:         224 5% 44%;      /* .subtlest #6B6E76            */
+    --ds-text-inverse:          0 0% 100%;       /* .inverse  #FFFFFF            */
+    --ds-text-brand:            215 80% 48%;     /* .brand    #1868DB            */
+    --ds-text-selected:         215 80% 48%;     /* .selected #1868DB            */
+    --ds-text-link:             215 80% 48%;     /* link.default #1868DB         */
+    --ds-text-link-pressed:     216 80% 41%;     /* link.pressed #1558BC         */
+    --ds-text-danger:           4 66% 41%;       /* danger.default #AE2E24       */
+    --ds-text-warning:          29 100% 31%;     /* warning.default #9E4C00      */
+    --ds-text-success:          84 55% 27%;      /* success.default #4C6B1F      */
+    --ds-text-information:      216 80% 41%;     /* information.default #1558BC  */
+    --ds-text-discovery:        278 45% 45%;     /* discovery.default #803FA5    */
+
+    /* Surfaces ── elevation.surface.* */
+    --ds-surface:               0 0% 100%;       /* .default  #FFFFFF            */
+    --ds-surface-overlay:       0 0% 100%;       /* .overlay  #FFFFFF            */
+    --ds-surface-raised:        0 0% 100%;       /* .raised   #FFFFFF            */
+    --ds-surface-sunken:        0 0% 97%;        /* .sunken   #F8F8F8            */
+    --ds-surface-hovered:       210 7% 95%;      /* .hovered  #F0F1F2            */
+    --ds-surface-pressed:       225 6% 87%;      /* .pressed  #DDDEE1            */
+
+    /* Backgrounds ── color.background.* */
+    --ds-bg-neutral:            0 0% 97%;        /* neutral.default  #F8F8F8     */
+    --ds-bg-neutral-bold:       228 6% 17%;      /* neutral.bold     #292A2E     */
+    --ds-bg-brand:              214 91% 95%;     /* brand.subtlest   #E9F2FE     */
+    --ds-bg-brand-bold:         215 80% 48%;     /* brand.bold       #1868DB     */
+    --ds-bg-selected:           214 91% 95%;     /* selected.default #E9F2FE     */
+    --ds-bg-selected-bold:      215 80% 48%;     /* selected.bold    #1868DB     */
+    --ds-bg-danger:             3 100% 96%;      /* danger.default   #FFECEB     */
+    --ds-bg-danger-bold:        4 64% 48%;       /* danger.bold      #C9372C     */
+    --ds-bg-warning:            43 100% 93%;     /* warning.default  #FFF5DB     */
+    --ds-bg-warning-bold:       45 96% 57%;      /* warning.bold     #FBC828     */
+    --ds-bg-success:            83 100% 92%;     /* success.default  #EFFFD6     */
+    --ds-bg-success-bold:       84 56% 32%;      /* success.bold     #5B7F24     */
+    --ds-bg-discovery:          278 89% 96%;     /* discovery.default #F8EEFE    */
+    --ds-bg-discovery-bold:     279 48% 52%;     /* discovery.bold   #964AC0     */
+    --ds-bg-information:        214 91% 95%;     /* information.default #E9F2FE  */
+    --ds-bg-information-bold:   215 80% 48%;     /* information.bold #1868DB     */
+
+    /* Borders ── color.border.* */
+    --ds-border:                225 6% 87%;      /* .default  Neutral300         */
+    --ds-border-bold:           222 5% 52%;      /* .bold     #7D818A            */
+    --ds-border-input:          224 5% 57%;      /* .input    #8C8F97            */
+    --ds-border-focused:        216 81% 60%;     /* .focused  #4688EC            */
+    --ds-border-selected:       215 80% 48%;     /* .selected #1868DB            */
+    --ds-border-brand:          215 80% 48%;     /* .brand    #1868DB            */
+    --ds-border-danger:         4 74% 56%;       /* .danger   #E2483D            */
+    --ds-border-warning:        29 100% 44%;     /* .warning  #E06C00            */
+    --ds-border-success:        84 63% 37%;      /* .success  #6A9A23            */
+    --ds-border-discovery:      278 69% 62%;     /* .discovery #AF59E1           */
+    --ds-border-information:    216 81% 60%;     /* .information #4688EC         */
+
+    /* Icons ── color.icon.* */
+    --ds-icon:                  228 6% 17%;      /* .default  #292A2E            */
+    --ds-icon-subtle:           225 5% 33%;      /* .subtle   #505258            */
+    --ds-icon-inverse:          0 0% 100%;       /* .inverse  #FFFFFF            */
+    --ds-icon-brand:            215 80% 48%;     /* .brand    #1868DB            */
+    --ds-icon-selected:         215 80% 48%;     /* .selected #1868DB            */
+    --ds-icon-danger:           4 64% 48%;       /* .danger   #C9372C            */
+    --ds-icon-warning:          29 100% 44%;     /* .warning  #E06C00            */
+    --ds-icon-success:          84 63% 37%;      /* .success  #6A9A23            */
+    --ds-icon-information:      216 80% 56%;     /* .information #357DE8         */
+    --ds-icon-discovery:        278 69% 62%;     /* .discovery #AF59E1           */
+  }
+
+  /* ── Light mode aliases ─────────────────────────────────────────────────── */
+  :root, [data-color-mode="light"] {
+    /* Text */
+    --ds-text:                        #292A2E;
+    --ds-text-subtle:                 #505258;
+    --ds-text-subtlest:               #6B6E76;
+    --ds-text-disabled:               rgba(8,15,33,0.29);
+    --ds-text-inverse:                #FFFFFF;
+    --ds-text-selected:               #1868DB;
+    --ds-text-brand:                  #1868DB;
+    --ds-text-danger:                 #AE2E24;
+    --ds-text-warning:                #9E4C00;
+    --ds-text-warning-inverse:        #292A2E;
+    --ds-text-success:                #4C6B1F;
+    --ds-text-discovery:              #803FA5;
+    --ds-text-information:            #1558BC;
+
+    /* Link */
+    --ds-link:                        #1868DB;
+    --ds-link-pressed:                #1558BC;
+    --ds-link-visited:                #803FA5;
+
+    /* Backgrounds — neutral */
+    --ds-background-neutral:          rgba(5,21,36,0.06);
+    --ds-background-neutral-hovered:  rgba(11,18,14,0.14);
+    --ds-background-neutral-pressed:  rgba(8,15,33,0.29);
+    --ds-background-neutral-subtle:   transparent;
+    --ds-background-neutral-subtle-hovered: rgba(5,21,36,0.06);
+    --ds-background-neutral-bold:     #292A2E;
+    --ds-background-neutral-bold-hovered: #3B3D42;
+    --ds-background-neutral-bold-pressed: #505258;
+
+    /* Backgrounds — brand */
+    --ds-background-brand-subtlest:         #E9F2FE;
+    --ds-background-brand-subtlest-hovered: #CFE1FD;
+    --ds-background-brand-subtlest-pressed: #ADCBFB;
+    --ds-background-brand-bold:             #1868DB;
+    --ds-background-brand-bold-hovered:     #1558BC;
+    --ds-background-brand-bold-pressed:     #144794;
+
+    /* Backgrounds — selected */
+    --ds-background-selected:          #E9F2FE;
+    --ds-background-selected-hovered:  #CFE1FD;
+    --ds-background-selected-pressed:  #ADCBFB;
+    --ds-background-selected-bold:     #1868DB;
+    --ds-background-selected-bold-hovered: #1558BC;
+
+    /* Backgrounds — input */
+    --ds-background-input:            #FFFFFF;
+    --ds-background-input-hovered:    #F0F1F2;
+    --ds-background-input-pressed:    #FFFFFF;
+
+    /* Backgrounds — status */
+    --ds-background-danger:           #FFECEB;
+    --ds-background-danger-hovered:   #FFD5D2;
+    --ds-background-danger-pressed:   #FFB8B2;
+    --ds-background-danger-bold:      #C9372C;
+    --ds-background-danger-bold-hovered: #AE2E24;
+    --ds-background-danger-bold-pressed: #872821;
+
+    --ds-background-warning:          #FFF5DB;
+    --ds-background-warning-hovered:  #FCE4A6;
+    --ds-background-warning-pressed:  #FBD779;
+    --ds-background-warning-bold:     #FBC828;
+    --ds-background-warning-bold-hovered: #DDB30E;
+    --ds-background-warning-bold-pressed: #CF9F02;
+
+    --ds-background-success:          #EFFFD6;
+    --ds-background-success-hovered:  #D3F1A7;
+    --ds-background-success-pressed:  #BDE97C;
+    --ds-background-success-bold:     #5B7F24;
+    --ds-background-success-bold-hovered: #4C6B1F;
+    --ds-background-success-bold-pressed: #37471F;
+
+    --ds-background-discovery:        #F8EEFE;
+    --ds-background-discovery-hovered: #EED7FC;
+    --ds-background-discovery-pressed: #E3BDFA;
+    --ds-background-discovery-bold:   #964AC0;
+    --ds-background-discovery-bold-hovered: #803FA5;
+    --ds-background-discovery-bold-pressed: #673286;
+
+    --ds-background-information:      #E9F2FE;
+    --ds-background-information-hovered: #CFE1FD;
+    --ds-background-information-pressed: #ADCBFB;
+    --ds-background-information-bold: #1868DB;
+    --ds-background-information-bold-hovered: #1558BC;
+    --ds-background-information-bold-pressed: #144794;
+
+    /* Surfaces — elevation */
+    --ds-surface:                     #FFFFFF;
+    --ds-surface-hovered:             #F0F1F2;
+    --ds-surface-pressed:             #DDDEE1;
+    --ds-surface-overlay:             #FFFFFF;
+    --ds-surface-overlay-hovered:     #F0F1F2;
+    --ds-surface-overlay-pressed:     #DDDEE1;
+    --ds-surface-raised:              #FFFFFF;
+    --ds-surface-raised-hovered:      #F0F1F2;
+    --ds-surface-raised-pressed:      #DDDEE1;
+    --ds-surface-sunken:              #F8F8F8;
+
+    /* Borders */
+    --ds-border:                      rgba(11,18,14,0.14);
+    --ds-border-bold:                 #7D818A;
+    --ds-border-input:                #8C8F97;
+    --ds-border-disabled:             rgba(5,21,36,0.06);
+    --ds-border-focused:              #4688EC;
+    --ds-border-selected:             #1868DB;
+    --ds-border-brand:                #1868DB;
+    --ds-border-danger:               #E2483D;
+    --ds-border-warning:              #E06C00;
+    --ds-border-success:              #6A9A23;
+    --ds-border-discovery:            #AF59E1;
+    --ds-border-information:          #4688EC;
+    --ds-border-accent-blue:          #1868DB;
+    --ds-border-accent-red:           #E2483D;
+    --ds-border-accent-green:         #6A9A23;
+    --ds-border-accent-teal:          #2898BD;
+    --ds-border-accent-purple:        #AF59E1;
+    --ds-border-accent-magenta:       #CD519D;
+    --ds-border-accent-yellow:        #946F00;
+    --ds-border-accent-orange:        #E06C00;
+    --ds-border-accent-gray:          #7D818A;
+    --ds-border-accent-lime:          #6A9A23;
+
+    /* Icons */
+    --ds-icon:                        #292A2E;
+    --ds-icon-subtle:                 #505258;
+    --ds-icon-inverse:                #FFFFFF;
+    --ds-icon-disabled:               rgba(8,15,33,0.29);
+    --ds-icon-brand:                  #1868DB;
+    --ds-icon-selected:               #1868DB;
+    --ds-icon-danger:                 #C9372C;
+    --ds-icon-warning:                #E06C00;
+    --ds-icon-success:                #6A9A23;
+    --ds-icon-discovery:              #AF59E1;
+    --ds-icon-information:            #357DE8;
+
+    /* Interaction overlays */
+    --ds-interaction-hovered:         rgba(0,0,0,0.16);
+    --ds-interaction-pressed:         rgba(0,0,0,0.32);
+
+    /* Blanket (modal overlay) */
+    --ds-blanket:                     rgba(5,12,31,0.46);
+    --ds-blanket-selected:            rgba(56,139,255,0.08);
+    --ds-blanket-danger:              rgba(239,92,72,0.08);
+
+    /* Skeleton */
+    --ds-skeleton:                    rgba(5,21,36,0.06);
+    --ds-skeleton-subtle:             rgba(23,23,23,0.03);
+
+    /* Opacity */
+    --ds-opacity-disabled:            0.4;
+    --ds-opacity-loading:             0.2;
+
+    /* Charts — categorical 1-8 */
+    --ds-chart-categorical-1:         #357DE8;
+    --ds-chart-categorical-2:         #82B536;
+    --ds-chart-categorical-3:         #BF63F3;
+    --ds-chart-categorical-4:         #F68909;
+    --ds-chart-categorical-5:         #1558BC;
+    --ds-chart-categorical-6:         #964AC0;
+    --ds-chart-categorical-7:         #42B2D7;
+    --ds-chart-categorical-8:         #BD5B00;
+  }
+
+  
+  .dark, [data-color-mode="dark"] {
+    /* Text */
+    --ds-text:                        #CECFD2;
+    --ds-text-subtle:                 #A9ABAF;
+    --ds-text-subtlest:               #96999E;
+    --ds-text-disabled:               rgba(229,233,246,0.25);
+    --ds-text-inverse:                #1F1F21;
+    --ds-text-selected:               #669DF1;
+    --ds-text-brand:                  #669DF1;
+    --ds-text-danger:                 #FD9891;
+    --ds-text-warning:                #FBC828;
+    --ds-text-warning-inverse:        #1F1F21;
+    --ds-text-success:                #B3DF72;
+    --ds-text-discovery:              #D8A0F7;
+    --ds-text-information:            #8FB8F6;
+
+    /* Link */
+    --ds-link:                        #669DF1;
+    --ds-link-pressed:                #8FB8F6;
+    --ds-link-visited:                #D8A0F7;
+
+    /* Backgrounds — neutral */
+    --ds-background-neutral:          rgba(206,206,217,0.07);
+    --ds-background-neutral-hovered:  rgba(227,228,242,0.12);
+    --ds-background-neutral-pressed:  rgba(229,233,246,0.25);
+    --ds-background-neutral-subtle:   transparent;
+    --ds-background-neutral-subtle-hovered: rgba(206,206,217,0.07);
+    --ds-background-neutral-bold:     #4B4D51;
+    --ds-background-neutral-bold-hovered: #63666B;
+    --ds-background-neutral-bold-pressed: #7E8188;
+
+    /* Backgrounds — brand */
+    --ds-background-brand-subtlest:         #1C2B42;
+    --ds-background-brand-subtlest-hovered: #1C2B42;
+    --ds-background-brand-subtlest-pressed: #123263;
+    --ds-background-brand-bold:             #669DF1;
+    --ds-background-brand-bold-hovered:     #8FB8F6;
+    --ds-background-brand-bold-pressed:     #ADCBFB;
+
+    /* Backgrounds — selected */
+    --ds-background-selected:          #1C2B42;
+    --ds-background-selected-hovered:  #1C2B42;
+    --ds-background-selected-pressed:  #123263;
+    --ds-background-selected-bold:     #669DF1;
+    --ds-background-selected-bold-hovered: #8FB8F6;
+
+    /* Backgrounds — input */
+    --ds-background-input:            #1F1F21;
+    --ds-background-input-hovered:    #242528;
+    --ds-background-input-pressed:    #2B2C2F;
+
+    /* Backgrounds — status */
+    --ds-background-danger:           #42221F;
+    --ds-background-danger-hovered:   #5D1F1A;
+    --ds-background-danger-pressed:   #872821;
+    --ds-background-danger-bold:      #F87168;
+    --ds-background-danger-bold-hovered: #FD9891;
+    --ds-background-danger-bold-pressed: #FFB8B2;
+
+    --ds-background-warning:          #3A2C1F;
+    --ds-background-warning-hovered:  #693200;
+    --ds-background-warning-pressed:  #7A3B00;
+    --ds-background-warning-bold:     #FBC828;
+    --ds-background-warning-bold-hovered: #EED12B;
+    --ds-background-warning-bold-pressed: #DDB30E;
+
+    --ds-background-success:          #28311B;
+    --ds-background-success-hovered:  #37471F;
+    --ds-background-success-pressed:  #3F5224;
+    --ds-background-success-bold:     #94C748;
+    --ds-background-success-bold-hovered: #82B536;
+    --ds-background-success-bold-pressed: #6A9A23;
+
+    --ds-background-discovery:        #35243F;
+    --ds-background-discovery-hovered: #48245D;
+    --ds-background-discovery-pressed: #673286;
+    --ds-background-discovery-bold:   #C97CF4;
+    --ds-background-discovery-bold-hovered: #D8A0F7;
+    --ds-background-discovery-bold-pressed: #E3BDFA;
+
+    --ds-background-information:      #1C2B42;
+    --ds-background-information-hovered: #1C2B42;
+    --ds-background-information-pressed: #123263;
+    --ds-background-information-bold: #669DF1;
+    --ds-background-information-bold-hovered: #8FB8F6;
+    --ds-background-information-bold-pressed: #ADCBFB;
+
+    /* Surfaces */
+    --ds-surface:                     #1F1F21;
+    --ds-surface-hovered:             #242528;
+    --ds-surface-pressed:             #2B2C2F;
+    --ds-surface-overlay:             #2B2C2F;
+    --ds-surface-overlay-hovered:     #303134;
+    --ds-surface-overlay-pressed:     #3D3F43;
+    --ds-surface-raised:              #242528;
+    --ds-surface-raised-hovered:      #2B2C2F;
+    --ds-surface-raised-pressed:      #303134;
+    --ds-surface-sunken:              #18191A;
+
+    /* Borders */
+    --ds-border:                      rgba(227,228,242,0.12);
+    --ds-border-bold:                 #7E8188;
+    --ds-border-input:                #7E8188;
+    --ds-border-disabled:             rgba(206,206,217,0.07);
+    --ds-border-focused:              #8FB8F6;
+    --ds-border-selected:             #669DF1;
+    --ds-border-brand:                #669DF1;
+    --ds-border-danger:               #F15B50;
+    --ds-border-warning:              #F68909;
+    --ds-border-success:              #82B536;
+    --ds-border-discovery:            #BF63F3;
+    --ds-border-information:          #8FB8F6;
+    --ds-border-accent-blue:          #669DF1;
+    --ds-border-accent-red:           #F15B50;
+    --ds-border-accent-green:         #82B536;
+    --ds-border-accent-teal:          #42B2D7;
+    --ds-border-accent-purple:        #BF63F3;
+    --ds-border-accent-magenta:       #DA62AC;
+    --ds-border-accent-yellow:        #CF9F02;
+    --ds-border-accent-orange:        #F68909;
+    --ds-border-accent-gray:          #7E8188;
+    --ds-border-accent-lime:          #82B536;
+
+    /* Icons */
+    --ds-icon:                        #CECFD2;
+    --ds-icon-subtle:                 #A9ABAF;
+    --ds-icon-inverse:                #1F1F21;
+    --ds-icon-disabled:               rgba(229,233,246,0.25);
+    --ds-icon-brand:                  #669DF1;
+    --ds-icon-selected:               #669DF1;
+    --ds-icon-danger:                 #F15B50;
+    --ds-icon-warning:                #FBC828;
+    --ds-icon-success:                #82B536;
+    --ds-icon-discovery:              #BF63F3;
+    --ds-icon-information:            #4688EC;
+
+    /* Interaction overlays */
+    --ds-interaction-hovered:         rgba(255,255,255,0.20);
+    --ds-interaction-pressed:         rgba(255,255,255,0.36);
+
+    /* Blanket */
+    --ds-blanket:                     rgba(1,4,4,0.46);
+    --ds-blanket-selected:            rgba(29,122,252,0.08);
+    --ds-blanket-danger:              rgba(227,73,53,0.08);
+
+    /* Skeleton */
+    --ds-skeleton:                    rgba(206,206,217,0.07);
+    --ds-skeleton-subtle:             rgba(189,189,189,0.04);
+
+    /* Opacity */
+    --ds-opacity-disabled:            0.4;
+    --ds-opacity-loading:             0.2;
+
+    /* Charts */
+    --ds-chart-categorical-1:         #4688EC;
+    --ds-chart-categorical-2:         #94C748;
+    --ds-chart-categorical-3:         #C97CF4;
+    --ds-chart-categorical-4:         #FCA700;
+    --ds-chart-categorical-5:         #1558BC;
+    --ds-chart-categorical-6:         #964AC0;
+    --ds-chart-categorical-7:         #42B2D7;
+    --ds-chart-categorical-8:         #E06C00;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Dark mode — DarkNeutral ramp for surfaces · lighter palette steps for text
+     Symmetry: Neutral100 ↔ DarkNeutral100 (same visual weight, inverted)
+  ═══════════════════════════════════════════════════════════════════════════ */
+  .dark {
+    /* ── Base tokens ──────────────────────────────────────────────── */
+    --background:             210 4% 10%;        /* DarkNeutral0    #18191A       */
+    --foreground:             225 4% 82%;        /* DarkNeutral1000 #CECFD2 11.8✓ */
+    --card:                   240 3% 13%;        /* DarkNeutral100  #1F1F21       */
+    --card-foreground:        225 4% 82%;
+    --popover:                225 4% 18%;        /* DarkNeutral250  #2B2C2F       */
+    --popover-foreground:     225 4% 82%;
+    --primary:                216 83% 67%;       /* Blue400  #669DF1   6.8:1 ✓   */
+    --primary-foreground:     210 6% 7%;         /* DarkNeutral-100 #111213       */
+    --secondary:              225 4% 18%;        /* DarkNeutral250  #2B2C2F       */
+    --secondary-foreground:   225 4% 82%;        /* DarkNeutral1000 #CECFD2       */
+    --muted:                  225 4% 18%;        /* DarkNeutral250  #2B2C2F       */
+    --muted-foreground:       218 4% 60%;        /* DarkNeutral700  #96999E 6.5✓  */
+    --accent:                 216 40% 18%;       /* bg.brand.subtlest #1C2B42     */
+    --accent-foreground:      216 85% 76%;       /* Blue300  #8FB8F6   7.1:1 ✓   */
+    --destructive:            4 91% 69%;         /* Red400   #F87168   4.6:1 ✓   */
+    --destructive-foreground: 210 6% 7%;         /* DarkNeutral-100 #111213       */
+    --border:                 225 4% 20%;        /* DarkNeutral300  #303134       */
+    --input:                  222 4% 51%;        /* border.input    #7E8188       */
+    --ring:                   216 85% 76%;       /* border.focused  #8FB8F6       */
+    /* Charts */
+    --chart-1:                216 81% 60%;       /* #4688EC  Blue              */
+    --chart-2:                84 53% 53%;        /* #94C748  Lime              */
+    --chart-3:                279 85% 72%;       /* #C97CF4  Purple            */
+    --chart-4:                40 100% 49%;       /* #FCA700  Orange            */
+    --chart-5:                195 65% 65%;       /* #6CC3E0  Teal              */
+    --chart-6:                279 48% 52%;       /* #964AC0  Deep Purple       */
+    --chart-7:                29 100% 44%;       /* #E06C00  Brown Orange      */
+    --chart-8:                323 71% 68%;       /* #E774BB  Magenta           */
+    /* Sidebar */
+    --sidebar-background:             240 5.9% 10%;     /* DarkNeutral-100 #111213       */
+    --sidebar-foreground:             240 4.8% 95.9%;    /* DarkNeutral1000 #CECFD2       */
+    --sidebar-primary:             224.3 76.3% 48%;   /* Blue400   #669DF1             */
+    --sidebar-primary-foreground:             0 0% 100%;
+    --sidebar-accent:             240 3.7% 15.9%;    /* DarkNeutral350  #3D3F43       */
+    --sidebar-accent-foreground:             240 4.8% 95.9%;    /* DarkNeutral900  #BFC1C4       */
+    --sidebar-border:             240 3.7% 15.9%;    /* DarkNeutral300  #303134       */
+    --sidebar-ring:             217.2 91.2% 59.8%;   /* Blue300   #8FB8F6             */
+
+    /* ── Extended semantic tokens ───────────────────────────────── */
+
+    /* Text */
+    --ds-text:                  225 4% 82%;      /* .default  #CECFD2            */
+    --ds-text-subtle:           220 4% 67%;      /* .subtle   #A9ABAF            */
+    --ds-text-subtlest:         218 4% 60%;      /* .subtlest #96999E            */
+    --ds-text-inverse:          240 3% 13%;      /* .inverse  #1F1F21            */
+    --ds-text-brand:            216 83% 67%;     /* .brand    #669DF1            */
+    --ds-text-selected:         216 83% 67%;     /* .selected #669DF1            */
+    --ds-text-link:             216 83% 67%;     /* link.default #669DF1         */
+    --ds-text-link-pressed:     216 85% 76%;     /* link.pressed #8FB8F6         */
+    --ds-text-danger:           4 96% 78%;       /* danger.default #FD9891       */
+    --ds-text-warning:          45 96% 57%;      /* warning.default #FBC828      */
+    --ds-text-success:          84 63% 66%;      /* success.default #B3DF72      */
+    --ds-text-information:      216 85% 76%;     /* information.default #8FB8F6  */
+    --ds-text-discovery:        279 85% 80%;     /* discovery.default #D8A0F7    */
+
+    /* Surfaces */
+    --ds-surface:               240 3% 13%;      /* .default  #1F1F21            */
+    --ds-surface-overlay:       225 4% 18%;      /* .overlay  #2B2C2F            */
+    --ds-surface-raised:        225 5% 15%;      /* .raised   #242528            */
+    --ds-surface-sunken:        210 4% 10%;      /* .sunken   #18191A            */
+    --ds-surface-hovered:       225 5% 15%;      /* .hovered  #242528            */
+    --ds-surface-pressed:       225 4% 18%;      /* .pressed  #2B2C2F            */
+
+    /* Backgrounds */
+    --ds-bg-neutral:            225 4% 18%;      /* neutral.default  #2B2C2F     */
+    --ds-bg-neutral-bold:       225 4% 82%;      /* neutral.bold     #CECFD2     */
+    --ds-bg-brand:              216 40% 18%;     /* brand.subtlest   #1C2B42     */
+    --ds-bg-brand-bold:         216 83% 67%;     /* brand.bold       #669DF1     */
+    --ds-bg-selected:           216 40% 18%;     /* selected.default #1C2B42     */
+    --ds-bg-selected-bold:      216 83% 67%;     /* selected.bold    #669DF1     */
+    --ds-bg-danger:             5 36% 19%;       /* danger.default   #42221F     */
+    --ds-bg-danger-bold:        4 91% 69%;       /* danger.bold      #F87168     */
+    --ds-bg-warning:            29 30% 17%;      /* warning.default  #3A2C1F     */
+    --ds-bg-warning-bold:       45 96% 57%;      /* warning.bold     #FBC828     */
+    --ds-bg-success:            85 29% 15%;      /* success.default  #28311B     */
+    --ds-bg-success-bold:       84 53% 53%;      /* success.bold     #94C748     */
+    --ds-bg-discovery:          278 27% 19%;     /* discovery.default #35243F    */
+    --ds-bg-discovery-bold:     279 85% 72%;     /* discovery.bold   #C97CF4     */
+    --ds-bg-information:        216 40% 18%;     /* information.default #1C2B42  */
+    --ds-bg-information-bold:   216 83% 67%;     /* information.bold #669DF1     */
+
+    /* Borders */
+    --ds-border:                225 4% 20%;      /* .default  DarkNeutral300     */
+    --ds-border-bold:           222 4% 51%;      /* .bold     #7E8188            */
+    --ds-border-input:          222 4% 51%;      /* .input    #7E8188            */
+    --ds-border-focused:        216 85% 76%;     /* .focused  #8FB8F6            */
+    --ds-border-selected:       216 83% 67%;     /* .selected #669DF1            */
+    --ds-border-brand:          216 83% 67%;     /* .brand    #669DF1            */
+    --ds-border-danger:         4 85% 63%;       /* .danger   #F15B50            */
+    --ds-border-warning:        32 93% 50%;      /* .warning  #F68909            */
+    --ds-border-success:        84 54% 46%;      /* .success  #82B536            */
+    --ds-border-discovery:      278 86% 67%;     /* .discovery #BF63F3           */
+    --ds-border-information:    216 85% 76%;     /* .information #8FB8F6         */
+
+    /* Icons */
+    --ds-icon:                  225 4% 82%;      /* .default  #CECFD2            */
+    --ds-icon-subtle:           220 4% 67%;      /* .subtle   #A9ABAF            */
+    --ds-icon-inverse:          240 3% 13%;      /* .inverse  #1F1F21            */
+    --ds-icon-brand:            216 83% 67%;     /* .brand    #669DF1            */
+    --ds-icon-selected:         216 83% 67%;     /* .selected #669DF1            */
+    --ds-icon-danger:           4 85% 63%;       /* .danger   #F15B50            */
+    --ds-icon-warning:          45 96% 57%;      /* .warning  #FBC828            */
+    --ds-icon-success:          84 54% 46%;      /* .success  #82B536            */
+    --ds-icon-information:      216 81% 60%;     /* .information #4688EC         */
+    --ds-icon-discovery:        278 86% 67%;     /* .discovery #BF63F3           */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
