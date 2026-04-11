@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/toaster";
-import { ToastAction } from "@/components/ui/toast";
+import { Button } from "@/kavia/button";
+import { Toaster } from "@/kavia/toaster";
+import { ToastAction } from "@/kavia/toast";
 import { toast } from "@/hooks/use-toast";
+import { DevGuide } from "./DevGuide";
 
 const meta: Meta = {
   title: "Components/Toast",
@@ -101,4 +102,76 @@ export const DestructiveWithAction: Story = {
       Destructive + Action
     </Button>
   ),
+};
+
+export const DeveloperGuide: Story = {
+  name: "Developer Guide",
+  render: () => (
+    <DevGuide
+      name="Toast"
+      description="A succinct message that is displayed temporarily. Built-in toast system using a custom hook. Note: For new projects, prefer Sonner which has a simpler API."
+      shadcnCommand="toast"
+      importCode={`// Add <Toaster /> to app root
+import { Toaster } from "@/kavia/toaster";
+
+// Use the hook in your components
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/kavia/toast";`}
+      usageCode={`// 1. Add Toaster to your root layout
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  );
+}
+
+// 2. Use the hook in any component
+function MyComponent() {
+  const { toast } = useToast();
+
+  return (
+    <Button
+      onClick={() =>
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Friday, February 10 at 5:57 PM",
+          action: (
+            <ToastAction altText="Undo">Undo</ToastAction>
+          ),
+        })
+      }
+    >
+      Show Toast
+    </Button>
+  );
+}
+
+// Destructive variant
+toast({
+  variant: "destructive",
+  title: "Uh oh! Something went wrong.",
+  description: "There was a problem with your request.",
+});`}
+      preview={<Button variant="outline">Show Toast (click)</Button>}
+      tokens={[
+        { token: "--background", value: "0 0% 100%", description: "Toast background." },
+        { token: "--foreground", value: "228 6% 17%", description: "Toast text color." },
+        { token: "--destructive", value: "4 64% 48%", description: "Destructive toast background." },
+        { token: "--destructive-foreground", value: "0 0% 100%", description: "Destructive toast text." },
+        { token: "--border", value: "225 6% 87%", description: "Toast border." },
+      ]}
+      notes={[
+        "Add <Toaster /> once in the root layout — it renders all queued toasts.",
+        "ToastAction requires an altText prop for screen reader accessibility.",
+        "Toasts auto-dismiss after a timeout — users can also swipe to dismiss.",
+        "For new projects, consider Sonner (npx shadcn@latest add sonner) — simpler API, better UX.",
+        "The useToast hook returns { toast, dismiss, toasts } — use dismiss(toastId) to programmatically close.",
+      ]}
+    />
+  ),
+  parameters: { layout: "padded" },
 };

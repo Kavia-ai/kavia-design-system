@@ -9,6 +9,7 @@ import {
   FileText,
   BarChart2,
 } from "lucide-react";
+import { DevGuide } from "./DevGuide";
 import {
   Sidebar,
   SidebarContent,
@@ -28,13 +29,13 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
+} from "@/kavia/sidebar";
+import { Separator } from "@/kavia/separator";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@/kavia/collapsible";
 
 const meta: Meta = {
   title: "Components/Sidebar",
@@ -313,4 +314,105 @@ export const FloatingVariant: Story = {
       </SidebarInset>
     </SidebarProvider>
   ),
+};
+
+export const DeveloperGuide: Story = {
+  name: "Developer Guide",
+  render: () => (
+    <DevGuide
+      name="Sidebar"
+      description="A composable, themeable sidebar component system. Supports collapsible, floating, and inset variants with keyboard shortcut toggle and mobile drawer mode."
+      shadcnCommand="sidebar"
+      importCode={`import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/kavia/sidebar";`}
+      usageCode={`// Wrap your layout in SidebarProvider
+export default function Layout({ children }) {
+  return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarHeader>
+          {/* Logo / branding */}
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarRail />
+      </Sidebar>
+      <SidebarInset>
+        <header>
+          <SidebarTrigger />
+          {/* Page header */}
+        </header>
+        <main>{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}`}
+      preview={
+        <div className="text-sm text-muted-foreground p-4 border rounded-lg">
+          Sidebar requires fullscreen layout — see the Default and WithSubMenu stories for live demos.
+        </div>
+      }
+      props={[
+        { name: "defaultOpen", type: "boolean", default: "true", description: "(SidebarProvider) Initial open state of the sidebar." },
+        { name: "open", type: "boolean", description: "(SidebarProvider) Controlled open state." },
+        { name: "onOpenChange", type: "(open: boolean) => void", description: "(SidebarProvider) Callback when sidebar opens/closes." },
+        { name: "variant", type: '"sidebar" | "floating" | "inset"', default: '"sidebar"', description: "(Sidebar) Layout variant." },
+        { name: "side", type: '"left" | "right"', default: '"left"', description: "(Sidebar) Which side the sidebar appears on." },
+        { name: "collapsible", type: '"offcanvas" | "icon" | "none"', default: '"offcanvas"', description: "(Sidebar) Collapse behavior." },
+        { name: "tooltip", type: "string | TooltipContent", description: "(SidebarMenuButton) Tooltip shown when sidebar is collapsed." },
+        { name: "isActive", type: "boolean", description: "(SidebarMenuButton) Marks current page/section as active." },
+      ]}
+      tokens={[
+        { token: "--sidebar-background", value: "0 0% 98%", description: "Sidebar panel background." },
+        { token: "--sidebar-foreground", value: "240 5.3% 26.1%", description: "Sidebar text color." },
+        { token: "--sidebar-primary", value: "240 5.9% 10%", description: "Active item / brand color." },
+        { token: "--sidebar-primary-foreground", value: "0 0% 98%", description: "Active item text." },
+        { token: "--sidebar-accent", value: "240 4.8% 95.9%", description: "Item hover background." },
+        { token: "--sidebar-accent-foreground", value: "240 5.9% 10%", description: "Item hover text." },
+        { token: "--sidebar-border", value: "220 13% 91%", description: "Sidebar border color." },
+        { token: "--sidebar-ring", value: "217.2 91.2% 59.8%", description: "Focus ring color." },
+      ]}
+      notes={[
+        "Always wrap the entire layout (sidebar + content) in <SidebarProvider>.",
+        "SidebarInset provides the content area with proper margin adjustment for the sidebar.",
+        "SidebarRail provides a thin clickable area to expand the collapsed sidebar.",
+        "Default keyboard shortcut to toggle: ⌘B (Mac) / Ctrl+B (Windows).",
+        "On mobile, the sidebar renders as a Sheet drawer automatically.",
+        "Use isActive on SidebarMenuButton to highlight the current page.",
+      ]}
+    />
+  ),
+  parameters: { layout: "fullscreen" },
 };

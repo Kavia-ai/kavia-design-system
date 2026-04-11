@@ -9,12 +9,24 @@ const withTheme: Decorator = (Story, context) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    // Atlassian uses data-color-mode="light|dark" to scope CSS variable blocks
     root.setAttribute("data-color-mode", theme === "dark" ? "dark" : "light");
-    // Also keep our .dark class for Tailwind dark utilities
     theme === "dark"
       ? root.classList.add("dark")
       : root.classList.remove("dark");
+
+    // Apply saved theme tokens from the Theme Customizer
+    try {
+      const storageKey = theme === "dark" ? "kavia-theme-tokens-dark" : "kavia-theme-tokens";
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const tokens = JSON.parse(saved) as Record<string, string>;
+        Object.entries(tokens).forEach(([key, value]) => {
+          root.style.setProperty(key, value);
+        });
+      }
+      const radius = localStorage.getItem("kavia-theme-radius");
+      if (radius) root.style.setProperty("--radius", `${radius}rem`);
+    } catch {}
   }, [theme]);
 
   return (
@@ -59,6 +71,30 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    a11y: {
+      // Run axe-core on every story
+      element: "#storybook-root",
+      config: {
+        rules: [
+          // Enforce color contrast (WCAG AA)
+          { id: "color-contrast", enabled: true },
+          // Enforce all images have alt text
+          { id: "image-alt", enabled: true },
+          // Enforce form labels
+          { id: "label", enabled: true },
+          // Enforce buttons have accessible names
+          { id: "button-name", enabled: true },
+          // Enforce links have accessible names
+          { id: "link-name", enabled: true },
+        ],
+      },
+      options: {
+        runOnly: {
+          type: "tag",
+          values: ["wcag2a", "wcag2aa", "wcag21aa", "best-practice"],
+        },
       },
     },
   },

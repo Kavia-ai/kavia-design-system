@@ -17,7 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart";
+} from "@/kavia/chart";
+import { DevGuide } from "./DevGuide";
 
 const meta: Meta = {
   title: "Components/Chart",
@@ -115,6 +116,90 @@ export const PieChartStory: Story = {
       </PieChart>
     </ChartContainer>
   ),
+};
+
+export const DeveloperGuide: Story = {
+  name: "Developer Guide",
+  render: () => (
+    <DevGuide
+      name="Chart"
+      description="Chart components built on top of Recharts with a theming layer. ChartContainer wires up color tokens from your ChartConfig, providing consistent theming across light and dark modes."
+      shadcnCommand="chart"
+      importCode={`import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from "@/kavia/chart";
+
+// Recharts chart types (install separately)
+import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid } from "recharts";`}
+      usageCode={`// 1. Define config — maps dataKey to label and color token
+const chartConfig: ChartConfig = {
+  desktop: { label: "Desktop", color: "hsl(var(--chart-1))" },
+  mobile: { label: "Mobile", color: "hsl(var(--chart-2))" },
+};
+
+// 2. Wrap your Recharts chart in ChartContainer
+<ChartContainer config={chartConfig} className="h-[300px] w-full">
+  <BarChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" tickLine={false} axisLine={false} />
+    <YAxis tickLine={false} axisLine={false} />
+    <ChartTooltip content={<ChartTooltipContent />} />
+    <ChartLegend content={<ChartLegendContent />} />
+    {/* Use var(--color-desktop) — injected by ChartContainer */}
+    <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+    <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+  </BarChart>
+</ChartContainer>
+
+// Line chart
+<ChartContainer config={config} className="h-[300px] w-full">
+  <LineChart data={data}>
+    <Line dataKey="value" stroke="var(--color-value)" strokeWidth={2} dot={false} />
+  </LineChart>
+</ChartContainer>`}
+      preview={
+        <ChartContainer config={barConfig} className="h-[200px] w-full">
+          <BarChart data={barData}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tick={{ fontSize: 11 }} />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      }
+      props={[
+        { name: "config", type: "ChartConfig", required: true, description: "(ChartContainer) Maps dataKey → { label, color }. ChartContainer injects CSS variables like --color-{key}." },
+        { name: "className", type: "string", description: "(ChartContainer) Required for sizing — set h-[...] and w-full." },
+        { name: "hideLabel", type: "boolean", description: "(ChartTooltipContent) Hides the data key label in tooltips." },
+        { name: "hideIndicator", type: "boolean", description: "(ChartTooltipContent) Hides the color indicator in tooltips." },
+        { name: "indicator", type: '"line" | "dot" | "dashed"', description: "(ChartTooltipContent) Style of the color indicator." },
+      ]}
+      tokens={[
+        { token: "--chart-1", value: "216 80% 56%", description: "Primary chart color (Blue)." },
+        { token: "--chart-2", value: "84 54% 46%", description: "Secondary chart color (Lime)." },
+        { token: "--chart-3", value: "278 86% 67%", description: "Tertiary chart color (Purple)." },
+        { token: "--chart-4", value: "32 93% 50%", description: "Chart color 4 (Orange)." },
+        { token: "--chart-5", value: "195 65% 55%", description: "Chart color 5 (Teal)." },
+        { token: "--chart-6", value: "279 48% 52%", description: "Chart color 6 (Deep Purple)." },
+        { token: "--chart-7", value: "29 100% 37%", description: "Chart color 7 (Brown Orange)." },
+        { token: "--chart-8", value: "323 71% 68%", description: "Chart color 8 (Magenta)." },
+      ]}
+      notes={[
+        "ChartContainer injects --color-{key} CSS variables for each key in your config — use var(--color-desktop) in fill/stroke props.",
+        "Always set h-[...] on ChartContainer — Recharts needs a fixed height parent.",
+        "Colors automatically adapt to dark mode via the CSS variable system.",
+        "Use ChartTooltipContent and ChartLegendContent for consistent tooltip/legend styling.",
+        "ChartConfig color value must be an hsl() value — use hsl(var(--chart-N)) pattern.",
+      ]}
+    />
+  ),
+  parameters: { layout: "padded" },
 };
 
 // --- Tooltip Indicators ---

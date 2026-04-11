@@ -7,6 +7,7 @@ const config: StorybookConfig = {
   ],
   addons: [
     "@storybook/addon-essentials",
+    "@storybook/addon-a11y",
     "@storybook/addon-interactions",
     "@storybook/addon-onboarding",
     "@chromatic-com/storybook",
@@ -14,6 +15,12 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/react-vite",
     options: {},
+  },
+  docs: {
+    autodocs: "tag",
+  },
+  viteFinal: (config) => {
+    return config;
   },
 };
 
