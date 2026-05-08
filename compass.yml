@@ -1,0 +1,16 @@
+name: kavia-design-system
+id: ari:cloud:compass:5e94d758-a794-4b1d-8c6d-fc24ab811c25:component/eaa92134-53b3-4c85-a00a-1874d1736e0e/05eba810-4b2c-4ce5-845d-d419b1a0ae51
+description: Design system for AI workflow manager
+configVersion: 1
+typeId: SERVICE
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/Kavia-ai/kavia-design-system
+relationships:
+  DEPENDS_ON: []
+labels:
+  - source:github
+customFields: null
