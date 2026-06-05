@@ -30,3 +30,4 @@ npm-debug.log*
 
 # Misplaced shadcn CLI output (components live in src/components/ui/)
 @/
+.file_activity_report.json
