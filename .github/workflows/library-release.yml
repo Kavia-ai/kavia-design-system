@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: kavia-design-system
+        working-directory: .
     outputs:
       package_version: ${{ steps.package_meta.outputs.package_version }}
       package_name: ${{ steps.package_meta.outputs.package_name }}
@@ -122,7 +122,7 @@ jobs:
     environment: release
     defaults:
       run:
-        working-directory: kavia-design-system
+        working-directory: .
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
