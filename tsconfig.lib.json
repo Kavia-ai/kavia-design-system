@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist/types",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["src/lib/**/*.ts", "src/kavia/**/*.ts", "src/components/**/*.tsx", "src/hooks/**/*.ts", "src/hooks/**/*.tsx", "src/lib/utils.ts", "vitest.shims.d.ts"]
+}
